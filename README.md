@@ -2,7 +2,7 @@
 Practice Project
 
 Practiced the skills I learned about JavaFX, SceneBuilder, and JDK 8 to create a project.
-Also practiced using IO and NIO.
+Also practiced using IO and NIO - only works for windows system since default directory is set to be created in C drive.
 
 To run the jar, open command prompt and type :
 -java jar *followed by the absolute path to the jar*
