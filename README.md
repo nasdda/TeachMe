@@ -6,6 +6,7 @@ Also practiced using IO and NIO.
 
 To run the jar, open command prompt and type :
 -java jar *followed by the absolute path to the jar*
+
 EXAMPLE: -java jar C:\Users\name\Desktop\TeachMe.jar
 
 *Make sure to keep your Java up to date. Minimum version: 1.8.0*
