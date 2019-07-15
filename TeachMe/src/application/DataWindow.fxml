@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DataController">
    <columnConstraints>
@@ -16,18 +18,28 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />
+      <RowConstraints />
    </rowConstraints>
    <children>
-      <BorderPane prefHeight="550.0" prefWidth="625.0">
+      <BorderPane prefHeight="550.0" prefWidth="625.0" GridPane.rowIndex="1">
          <left>
             <ListView fx:id="FileNameListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
          <bottom>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#showSaveWindow" text="Save Current Data" />
-                  <Button layoutX="273.0" layoutY="10.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#loadClicked" text="Load Data" />
-                  <Button layoutX="328.0" layoutY="20.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#deleteClicked" text="Remove Data" />
+                  <Button minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#showSaveWindow" text="Save Current Data">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Button layoutX="273.0" layoutY="10.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#loadClicked" text="Load Data">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Button layoutX="328.0" layoutY="20.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#deleteClicked" text="Remove Data">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -38,5 +50,22 @@
             <TextArea fx:id="FileEntries" editable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
+      <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="626.0" spacing="140.0" GridPane.halignment="CENTER">
+         <children>
+            <Label text="Save Data">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label text="Entries">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </HBox>
    </children>
 </GridPane>
