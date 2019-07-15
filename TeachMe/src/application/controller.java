@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.Event;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,9 +10,12 @@ import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
+import com.sun.glass.events.KeyEvent;
+
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -23,6 +27,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -77,7 +82,7 @@ public class controller{
 		if (registeredResponses == null) {//Requires restart after the ResponseData file is first created
 		      System.out.println("\nFirst launch file setup complete. \nPlease restart program.");
 		      System.exit(0);
-		    } 
+		} 
 		
 		///Themes///
 		themeComboBox.getItems().add("Default");
@@ -88,7 +93,7 @@ public class controller{
 	
 		themeComboBox.setValue("Default"); //Theme is set to default at start
 		
-		try { // sets the title icon and help icon
+		try { //sets the title icon and help icon
 			InputStream titleFile = getClass().getResourceAsStream("/title.PNG");
 			BufferedImage titleBI =  ImageIO.read(titleFile);
 			Image titleimg = SwingFXUtils.toFXImage(titleBI, null);
@@ -103,6 +108,11 @@ public class controller{
 			System.out.println("Error loading images");
 		}
 		
+		messageTextField.setOnKeyPressed(e->{//If ENTER key is pressed while on messageTextField, it is equivalent as pressing the send button.
+			if(e.getCode()==KeyCode.ENTER) {
+				sendButtonClicked();
+			}
+		});
 		
 		try { //Changes bg color every second if theme is set to 'Color-Switch'
 		backgroundColorChanges = new Service<Void>() {
@@ -412,6 +422,5 @@ public class controller{
 		dataWindow.showDataWindow();
 		
 	}
-	
 	
 }
