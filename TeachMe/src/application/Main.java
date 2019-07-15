@@ -1,3 +1,5 @@
+/*@author Xin yan
+*/
 package application;
 
 import java.io.File;
@@ -10,10 +12,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class Main
-  extends Application
+public class Main extends Application
 {
-  private static File directory = new File("C:/TeachMeData"); //repository for save datas
+  private static File directory = new File("C:/TeachMeData"); //repository for savedatas
   private static File fileDirectory = new File(directory + "/files"); //repository for the TeachMeFiles file which contains name of all save data files
   
   public void start(Stage arg0) throws Exception {
@@ -22,24 +23,17 @@ public class Main
     arg0.setTitle("TeachMe");
     arg0.setScene(new Scene(root));
     arg0.show();
-    arg0.setOnHidden(e -> Platform.exit());
+    arg0.setOnHidden(e -> Platform.exit());  //Exits all windows when main stage is closed
   }
 
   
-  public static void main(String[] args) { launch(args); }
-
-
-
+  public static void main(String[] args) {
+	  launch(args);
+	  }
   
-  public void stop() { Data.getInstance().updateData(); //Saves the data before exiting. Just in case.
-  } 
-  
-
-
-
-
   
   public void init() throws Exception{
+	  
     if (!Data.getInstance().getDatadirectory().exists()) {
       Data.getInstance().getDatadirectory().mkdir();
     }
@@ -56,4 +50,10 @@ public class Main
     FilesRetriever.getInstance().setCurrentFile(Data.getInstance().getDataFile());
     FilesRetriever.getInstance().startUp();
   }
+  
+  
+  public void stop() {
+	  Data.getInstance().updateData(); //Saves the data before exiting. Just in case.
+  }
+
 }
