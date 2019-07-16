@@ -109,9 +109,26 @@ public class controller{
 		}
 		
 		messageTextField.setOnKeyPressed(e->{//If ENTER key is pressed while on messageTextField, it is equivalent as pressing the send button.
-			if(e.getCode()==KeyCode.ENTER) {
+			if(e.getCode()==KeyCode.ENTER)
 				sendButtonClicked();
-			}
+		});
+		
+		inputTextField.setOnKeyPressed(e->{ //Pressing ENTER when input/response textfield is selected is equivalent as pressing the add button.
+			if(e.getCode()==KeyCode.ENTER)
+				try {
+					addButtonClick();
+				} catch (Exception e1) {
+					System.out.println("Exception when adding input-response.");
+				}
+		});
+		
+		responseTextField.setOnKeyPressed(e->{
+			if(e.getCode()==KeyCode.ENTER)
+				try {
+					addButtonClick();
+				} catch (Exception e1) {
+					System.out.println("Exception when adding input-response.");
+				}
 		});
 		
 		try { //Changes bg color every second if theme is set to 'Color-Switch'
@@ -340,13 +357,12 @@ public class controller{
 		try {
 			switch(theme) {
 			case "Color-Switch":{
-						if(!checkIfRunning) {
-							synchronized(backgroundColorChanges) {
-								backgroundColorChanges.restart();
-								checkIfRunning=true;
-							}
-			
+				if(!checkIfRunning) {//Checks if service is already running.
+					synchronized(backgroundColorChanges) {
+						backgroundColorChanges.restart();
+						checkIfRunning=true;
 						}
+					}
 						return true;
 					}
 			case "Default":{
@@ -387,9 +403,10 @@ public class controller{
 				}	
 			}
 		}catch(Exception e) {
-			count =0;
 			backgroundColorChanges.cancel();
+			count =0;
 			backgroundColorChanges.restart();
+			return false;
 		}
 		
 		pane.setStyle("-fx-background-color:"+bgColor);
@@ -417,7 +434,7 @@ public class controller{
 		info.close();
 	}
 	
-	public void dataClicked() throws Exception{//Shows DataWindow when data button is clicked
+	public void dataClicked() throws Exception{//Shows DataWindow when Data button is clicked
 		DataController dataWindow = new DataController();
 		dataWindow.showDataWindow();
 		
