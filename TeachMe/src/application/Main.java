@@ -34,20 +34,20 @@ public class Main extends Application
   
   public void init() throws Exception{
 	  
-    if (!Data.getInstance().getDatadirectory().exists()) {
+    if (!Data.getInstance().getDatadirectory().exists()) { //Create files directory if specified directory doesn't exist.
       Data.getInstance().getDatadirectory().mkdir();
     }
     
-    if (!fileDirectory.exists()) {
+    if (!fileDirectory.exists()) {//Make directory for TeachMeData.
       fileDirectory.mkdir();
     }
 
     
-    if (!Data.getInstance().getDataFile().createNewFile()) {
+    if (!Data.getInstance().getDataFile().createNewFile()) {//If ResponseData exists, load data. Else, create ResponseData file.
       Data.getInstance().loadEntries();
     }
     
-    FilesRetriever.getInstance().setCurrentFile(Data.getInstance().getDataFile());
+    FilesRetriever.getInstance().setCurrentFile(Data.getInstance().getDataFile());//Current file on startup is set to ResponseData.
     FilesRetriever.getInstance().startUp();
   }
   
