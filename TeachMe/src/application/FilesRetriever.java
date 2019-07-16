@@ -24,22 +24,22 @@ import javafx.scene.control.ButtonType;
 
 public class FilesRetriever {
 	private static FilesRetriever instance= new FilesRetriever();
-	private static File directory = new File("C:/TeachMeData");
-	private static File fileDirectory = new File(directory+"/files");
-	private static File fileNames = new File(fileDirectory+"/"+"TeachMeFiles");
-	private ObservableList<File> names = FXCollections.observableArrayList(); 
+	private static File directory = new File("C:/TeachMeData");//Files directory.
+	private ObservableList<File> fileNames = FXCollections.observableArrayList(); 
 	private ButtonType replace = new ButtonType("Replace",ButtonBar.ButtonData.OK_DONE);
 	private ButtonType close = new ButtonType("Close",ButtonBar.ButtonData.CANCEL_CLOSE);
-	private static File currentFile;
+	private static File currentFile; //File to modify when Reset Button or save button is clicked.
 	
 	public static FilesRetriever getInstance() {
 		return instance;
 	}
-
 	
+	public void setCurrentFile(File file) {
+		currentFile = file;
+	}
 	
-	public void getSavedFileNames() {
-		
+	public static File getCurrentFile() {
+		return currentFile;
 	}
 	
 	public boolean saveFile(String s) throws Exception{ // returns true if save complete/replace existing save
@@ -51,28 +51,22 @@ public class FilesRetriever {
 		}
 		File file = new File(directory+"/"+s);
 		
-		if(!names.contains(file)) {
-			names.add(file);
-			updateFiles(names);
+		if(!fileNames.contains(file)) {//Save current data into file if the file doesn't already exist.
+			fileNames.add(file);
 			try {
 				saveToFile(currentFile, file);
-				
-				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				System.out.println("error when saving file.");
-			}
-			
+			}	
 			return true;
 		}
 			
-		Alert alreadyExistAlert = new Alert(AlertType.WARNING,"The data file already exist.",replace,close);
+		Alert alreadyExistAlert = new Alert(AlertType.WARNING,"The data file already exist.",replace,close);  //Asks user if they want to replace existing file if file already exists.
 		Optional<ButtonType> result = alreadyExistAlert.showAndWait();
 		
 		if(result.orElse(close).equals(replace)) {
-			names.remove(file);
-			names.add(file);
-			updateFiles(names);
+			fileNames.remove(file);
+			fileNames.add(file);
 			try {
 				saveToFile(currentFile, file);
 				
@@ -104,7 +98,7 @@ public class FilesRetriever {
 		BufferedReader br = new BufferedReader(fr);
 		String line;
 		try {
-			while((line = br.readLine())!=null&&!line.trim().isEmpty()) {
+			while((line = br.readLine())!=null&&!line.trim().isEmpty()) {//Saves entries in current file into new file.
 				bw.write(line);
 				bw.newLine();
 			}
@@ -118,66 +112,26 @@ public class FilesRetriever {
 		}
 	}
 	
-	public void setCurrentFile(File file) {
-		currentFile = file;
-	}
 	
-	public static File getCurrentFile() {
-		return currentFile;
-	}
-	
-	public void updateFiles(List<File> names) throws Exception {
-		fileNames.createNewFile();
-			FileWriter fw = new FileWriter(fileNames);
-			BufferedWriter bw = new BufferedWriter(fw);
-			
-			ListIterator<File> iter = names.listIterator();
-		try {			
-			while(iter.hasNext()) {
-				String name = iter.next().getAbsolutePath();
-				bw.write(name);
-				bw.newLine();
-			}
-			
-			
-		} catch (IOException e) {
-			System.out.println("Error when updating file names");
-		}finally {
-			if(bw!=null) {
-				bw.close();
-				fw.close();
-			}
-		}
-		
-	}
-	
-	
-	public void loadDataFile() {
-		
-	}
-	
-	public List<File> getNames(){
-		return names;
+	public List<File> getFileNames(){
+		return fileNames;
 	}
 	
 	public void startUp() throws Exception{
-		names.clear();
-		try(Stream<Path> walk = Files.walk(Paths.get(directory.getAbsolutePath()))){
+		fileNames.clear();
+		try(Stream<Path> walk = Files.walk(Paths.get(directory.getAbsolutePath()))){//Saves the paths of the files in the directory into fileNames list.
 			
-			List<String> result = walk.filter(x->{return !(x.toString().equals(fileNames.getAbsoluteFile().toString()));})
-									  .filter(Files::isRegularFile)
+			List<String> result = walk.filter(Files::isRegularFile)
 									  .map(x->x.toString())
 									  .collect(Collectors.toList());
 			result.forEach(f->{
 				File file = new File(f);
-				names.add(file);
+				fileNames.add(file);
 			});
 		}catch(IOException e) {
 			System.out.println("Error at startup load");
 		}
 	}
-	
-	
 	
 
 }
