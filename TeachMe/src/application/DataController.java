@@ -23,19 +23,30 @@ public class DataController {
 	private static DataController instance = new DataController();
 	private ButtonType ok = new ButtonType("OK",ButtonBar.ButtonData.CANCEL_CLOSE);
 	private static Stage dataStage = new Stage();
-	private static File defaultFile = new File("C:/TeachMeData/ResponseData"); //Default save file. Cannot be deleted
+	private static File defaultFile = new File("C:/TeachMeData/ResponseData"); //Default save file. Cannot be deleted via delete button.
 	
 	@FXML private ListView<File> FileNameListView;
 	@FXML private TextArea FileEntries;
 	
 	
+	public static Stage getDataStage() {
+		return dataStage;
+	}
+	
+	public static DataController getInstance() {
+		return instance;
+	}
+	
+	public ListView<File> getListView(){
+		return this.FileNameListView;
+	}
 	
 	
 	@FXML
 	public void initialize() throws Exception{
 		FileNameListView.getItems().clear();
 		FilesRetriever.getInstance().startUp();
-		FileNameListView.getItems().setAll(FilesRetriever.getInstance().getNames());
+		FileNameListView.getItems().setAll(FilesRetriever.getInstance().getFileNames());
 		FileNameListView.setCellFactory(lv-> new ListCell<File>() { //Listview only show file name
 			@Override
 			protected void updateItem(File file, boolean empty) {
@@ -46,9 +57,9 @@ public class DataController {
 				
 		
 		FileNameListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<File>() {
-
+			//Update textarea with input-response entries in the selected file on listview.
 			@Override
-			public void changed(ObservableValue<? extends File> arg0, File arg1, File selectedFile){
+			public void changed(ObservableValue<? extends File> arg0, File arg1, File selectedFile){ 
 				if(selectedFile!=null) {
 					File file = new File(FileNameListView.getSelectionModel().getSelectedItem().getAbsolutePath());
 					FileEntries.clear();
@@ -56,15 +67,10 @@ public class DataController {
 					try {
 						showEntries(file);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-					
-				}
-				
-			}
-			
-			
+					}	
+				}	
+			}	
 		});
 	}
 
@@ -129,28 +135,20 @@ public class DataController {
 		
 		FilesRetriever.getInstance().startUp();
 		
-		FileNameListView.getItems().setAll(FilesRetriever.getInstance().getNames());
+		FileNameListView.getItems().setAll(FilesRetriever.getInstance().getFileNames());
 		return true;
 	}
 
 	
-	public static DataController getInstance() {
-		return instance;
-	}
-	
-	public ListView<File> getListView(){
-		return this.FileNameListView;
-	}
-	
 
 	
-	public void loadClicked() throws Exception {
+	public void loadClicked() throws Exception {//when delete clicked, set current file to file selected on list view.
 		File file = FileNameListView.getSelectionModel().getSelectedItem();
 		if(file != null) {
 			FilesRetriever.getInstance().setCurrentFile(file);
 			File currentFile = FilesRetriever.getCurrentFile();
 			Data.getInstance().setMainFile(currentFile);
-			Data.getInstance().loadEntries();
+			Data.getInstance().loadEntries();//Loads the entries in the file to the 
 			controller.getInstance().setMap(Data.getInstance().getSaveEntries());
 			
 			  Alert loaded = new Alert(AlertType.INFORMATION,"Data Loaded.",ok);
@@ -161,8 +159,4 @@ public class DataController {
 		
 	}
 	
-	public static Stage getDataStage() {
-		return dataStage;
-	}
-
 }
