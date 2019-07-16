@@ -11,27 +11,22 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 
 
-
 public class Data
 {
-  private static final Data instance = new Data();
-  
+  private static final Data instance = new Data();//singleton
   private Map<String, String> saveEntries;
-  
   private static File directory = new File("C:/TeachMeData");
-  private static File dataFile = new File("C:/TeachMeData/ResponseData");
-
-  
-  public File getDatadirectory() { return directory; }
-
-
-  
-  public File getDataFile() { return dataFile; }
-
-
-
+  private static File dataFile = new File("C:/TeachMeData/ResponseData"); //Default file
   
   public static Data getInstance() { return instance; }
+  public File getDatadirectory() { return directory; }
+
+  public File getDataFile() { return dataFile; }
+  
+  
+  public void setMainFile(File file) { dataFile = file; }
+  
+  public File getMainFile() { return dataFile; }
 
   
   public void updateData() {
@@ -99,12 +94,4 @@ public class Data
     } 
   }
 
-
-
-
-  
-  public void setMainFile(File file) { dataFile = file; }
-
-  
-  public File getMainFile() { return dataFile; }
 }
