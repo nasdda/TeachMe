@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
   private static File directory = new File("C:/TeachMeData"); //repository for savedatas
-  private static File fileDirectory = new File(directory + "/files"); //repository for the TeachMeFiles file which contains name of all save data files
   
   public void start(Stage arg0) throws Exception {
     Parent root = (Parent)FXMLLoader.load(getClass().getResource("window.fxml"));
@@ -37,11 +36,6 @@ public class Main extends Application
     if (!Data.getInstance().getDatadirectory().exists()) { //Create files directory if specified directory doesn't exist.
       Data.getInstance().getDatadirectory().mkdir();
     }
-    
-    if (!fileDirectory.exists()) {//Make directory for TeachMeData.
-      fileDirectory.mkdir();
-    }
-
     
     if (!Data.getInstance().getDataFile().createNewFile()) {//If ResponseData exists, load data. Else, create ResponseData file.
       Data.getInstance().loadEntries();
