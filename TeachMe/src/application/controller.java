@@ -1,6 +1,5 @@
 package application;
 
-import java.awt.Event;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,12 +9,9 @@ import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
-import com.sun.glass.events.KeyEvent;
-
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
