@@ -59,7 +59,10 @@
       </Label>
       <ImageView fx:id="titleImageView" fitHeight="52.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
 </ImageView>
-      <TextArea fx:id="chatTextArea" editable="false" maxWidth="480.0" prefHeight="198.0" prefWidth="450.0" wrapText="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <TextArea fx:id="chatTextArea" editable="false" maxWidth="480.0" prefHeight="198.0" prefWidth="450.0" wrapText="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+         <font>
+            <Font size="14.0" />
+         </font></TextArea>
       <TextField fx:id="messageTextField" maxWidth="348.0" prefHeight="31.0" prefWidth="348.0" promptText="Type a message..." GridPane.columnSpan="2" GridPane.rowIndex="6">
          <font>
             <Font size="15.0" />
