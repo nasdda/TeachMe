@@ -1,4 +1,4 @@
-/*@author Xin yan
+/*@Author Xin yan
 */
 package application;
 
