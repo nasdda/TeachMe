@@ -1,7 +1,7 @@
 # TeachMe
 Practice Project
 
-Practiced JavaFX, JDK 8, Java I/O.
+Practiced JavaFX, SceneBuilder, JDK 8, Java I/O.
 Only works for windows system since default directory is set to be created in C drive.
 
 To run the jar, open command prompt and type :
