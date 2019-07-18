@@ -13,4 +13,4 @@ EXAMPLE: -java jar "C:\Users\name\Desktop\TeachMe.jar"
 *If console show JavaFX toolkit error and fails to run, make sure to update/download the latest JavaFX runtime.*
 
 Similar to a chatbot. Allows user to associate a response to an input, and when the specific input is sent, the program returns the
-response.
+response. You can save,load, or delete savedatas via the Data manager which is opened by clicking the Data button.
