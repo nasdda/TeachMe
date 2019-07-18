@@ -29,8 +29,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class controller{
-	private static Map<String,String> registeredResponses = new HashMap<>(); // Map to store each input with the preferred response
-	private Map<String,String> chatHistory = new HashMap<>(); //Map for displaying sent-recieved chat messages on text area
+	private static Map<String,String> registeredResponses = new HashMap<>(); // Map to store each input with the desired response
+	private Map<String,String> chatHistory = new HashMap<>(); //Map for displaying sent/recieved chat messages on text area
 	
 	//////Buttons//////
 	private ButtonType replace = new ButtonType("Replace",ButtonBar.ButtonData.OK_DONE);
