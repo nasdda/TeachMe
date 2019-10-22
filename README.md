@@ -1,11 +1,8 @@
 # TeachMe
 Practice Project
 
-Practiced JavaFX, SceneBuilder, JDK 8, Java I/O.
+Practiced JavaFX, SceneBuilder, JDK 10, Java I/O.
 Only works for windows system since default directory is set to be created in C drive.
-
-To run the jar, open command prompt and type :
--java jar "*followed by the absolute path to the jar*"
 
 
 *Note JavaFX 11 is used to create this project, which apparently isn't included in the openJDK, and so you must manually install JavaFX when running into the error regarding JavaFX runtime components missing*
