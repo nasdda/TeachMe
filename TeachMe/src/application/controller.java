@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
-
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
@@ -29,8 +28,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class controller{
-	private static Map<String,String> registeredResponses = new HashMap<>(); // Map to store each input with the desired response
-	private Map<String,String> chatHistory = new HashMap<>(); //Map for displaying sent/recieved chat messages on text area
+	private static Map<String,String> registeredResponses = new HashMap<>(); // Map to store each input with the preferred response
+	private Map<String,String> chatHistory = new HashMap<>(); //Map for displaying sent-recieved chat messages on text area
 	
 	//////Buttons//////
 	private ButtonType replace = new ButtonType("Replace",ButtonBar.ButtonData.OK_DONE);
@@ -40,8 +39,15 @@ public class controller{
 	
 	
 	private boolean checkIfRunning = false; //State of backgroundColorChanges - Makes sure to stop the thread before changing to specified theme
-	private int count = 0; //For backgroundColorChanges. Keeps track of which color to change to
-	
+	private int count = (int)(Math.random()*6); //For backgroundColorChanges. Randoms the bg and text color
+	private Map<Integer, String[]> bgc = new HashMap<>() {{ // bg and text color according to value of count
+        put(0, new String[]{"#F96167","#FCE77D"});
+        put(1, new String[]{"#f5d36c","#ffffff"});
+        put(2, new String[]{"#ff9999","#ffffff"});
+        put(3, new String[]{"#ffc2da","#636363"});
+        put(4, new String[]{"#4e5157","white"});
+        put(5, new String[]{"#4a85d9","#fccd4c"});
+    }};
 	private static controller instance = new controller(); //singleton
 	
 	private Service<Void> backgroundColorChanges; //background color changing thread
@@ -135,95 +141,14 @@ public class controller{
 
 					@Override
 					protected synchronized Void call() throws Exception {
-						
-						String BGC; //background color
-						String textC; //text color
 						while(true) {
-							switch(count) {
-							case 0:{
-								synchronized(backgroundColorChanges) {
-								BGC="#F96167";
-								textC="#FCE77D";
-								pane.setStyle("-fx-background-color:"+BGC);
-								inputLabel.setTextFill(Color.web(textC));
-								responseLabel.setTextFill(Color.web(textC));
-								themeLabel.setTextFill(Color.web(textC));
-								Thread.sleep(1000);};
-								synchronized(backgroundColorChanges) {
-									count=1;}
-								break;
-								
-							}
-							case 1:{
-								synchronized(backgroundColorChanges) {
-								BGC="#f5d36c";
-								textC = "#ffffff";
-								pane.setStyle("-fx-background-color:"+BGC);
-								inputLabel.setTextFill(Color.web(textC));
-								responseLabel.setTextFill(Color.web(textC));
-								themeLabel.setTextFill(Color.web(textC));
-								Thread.sleep(1000);
-								};
-								synchronized(backgroundColorChanges) {
-									count=2;}
-								break;
-							}
-							case 2:{
-								synchronized(backgroundColorChanges) {BGC="#ff9999";
-								textC = "#ffffff";
-								pane.setStyle("-fx-background-color:"+BGC);
-								inputLabel.setTextFill(Color.web(textC));
-								responseLabel.setTextFill(Color.web(textC));
-								themeLabel.setTextFill(Color.web(textC));
-								Thread.sleep(1000);
-								};
-								synchronized(backgroundColorChanges) {
-									count=3;}
-								break;
-							}
-							case 3:{
-								synchronized(backgroundColorChanges) {
-								BGC="#ffc2da";
-								textC = "#636363";
-								pane.setStyle("-fx-background-color:"+BGC);
-								inputLabel.setTextFill(Color.web(textC));
-								responseLabel.setTextFill(Color.web(textC));
-								themeLabel.setTextFill(Color.web(textC));
-								Thread.sleep(1000);
-								};
-								synchronized(backgroundColorChanges) {
-									count=4;}
-								break;
-							}
-							case 4:{
-								synchronized(backgroundColorChanges) {
-								BGC="#4e5157";
-								
-								textC="white";
-								pane.setStyle("-fx-background-color:"+BGC);
-								inputLabel.setTextFill(Color.web(textC));
-								responseLabel.setTextFill(Color.web(textC));
-								themeLabel.setTextFill(Color.web(textC));
-								Thread.sleep(1000);};
-								synchronized(backgroundColorChanges) {
-									count=5;}
-								break;
-							}
-							case 5:{
-								synchronized(backgroundColorChanges) {
-								BGC="#4a85d9";
-								textC="#fccd4c";
-								pane.setStyle("-fx-background-color:"+BGC);
-								inputLabel.setTextFill(Color.web(textC));
-								responseLabel.setTextFill(Color.web(textC));
-								themeLabel.setTextFill(Color.web(textC));
-								Thread.sleep(1000);
-								};
-								synchronized(backgroundColorChanges) {
-									count=0;}
-								break;
-							}
-							}
+							pane.setStyle("-fx-background-color:"+bgc.get(count)[0]);
+							inputLabel.setTextFill(Color.web(bgc.get(count)[1]));
+							responseLabel.setTextFill(Color.web(bgc.get(count)[1]));
+							themeLabel.setTextFill(Color.web(bgc.get(count)[1]));	
+							Thread.sleep(500);
+							count = (int)(Math.random()*6);
+							Thread.sleep(500);
 						}
 					}
 				};
@@ -294,7 +219,6 @@ public class controller{
 	}
 	
 	
-	
 	@FXML 
 	public boolean sendButtonClicked() {
 		if(registeredResponses.containsKey(messageTextField.getText().toLowerCase().trim())) { //Fetches corresponding response if the input exists in current save file
@@ -318,7 +242,6 @@ public class controller{
 			chatHistory.remove(entry.getKey());
 		}
 		return true;
-	
 	}	
 	
 	@FXML
