@@ -8,6 +8,7 @@ Only works for windows system by default(could change path for where the data is
 
 
 *Note JavaFX 11 is used to create this project, which apparently isn't included in the openJDK, and so you must manually install JavaFX when running into the error regarding JavaFX runtime components missing*
+Have JavaFX in your project: https://openjfx.io/openjfx-docs/
 
 *Make sure to keep your Java up to date. Minimum version: 1.8.0*
 *If console show JavaFX toolkit error and fails to run, make sure to update/download the latest JavaFX runtime.*
