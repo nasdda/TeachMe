@@ -4,7 +4,7 @@ Practice Project
 Video Demo: https://youtu.be/00rfA0yzYuQ
 
 Practiced JavaFX, SceneBuilder, JDK 11, Java I/O.
-Only works for windows system since default directory is set to be created in C drive.
+Only works for windows system by default(could change path for where the data is saved to match different OS), since directory is set to be created in C drive.
 
 
 *Note JavaFX 11 is used to create this project, which apparently isn't included in the openJDK, and so you must manually install JavaFX when running into the error regarding JavaFX runtime components missing*
