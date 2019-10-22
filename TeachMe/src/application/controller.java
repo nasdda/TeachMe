@@ -138,7 +138,6 @@ public class controller{
 			@Override
 			protected synchronized Task<Void> createTask() {
 				return new Task<Void>() {
-
 					@Override
 					protected synchronized Void call() throws Exception {
 						while(true) {
@@ -156,6 +155,11 @@ public class controller{
 		};}catch(Exception e) {
 			backgroundColorChanges.cancel();
 			count = 0;
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 			backgroundColorChanges.restart();
 		}
 	}
